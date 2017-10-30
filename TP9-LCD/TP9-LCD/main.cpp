@@ -14,7 +14,6 @@ int main()
 	DWORD sizeSent = 0;
 	bool found = false;
 	hitachi_lcd lcd;
-	FT_STATUS f_stat;
 	for (int i = 0; (i < 10) && !found; i++)
 	{
 		if (FT_Open(i, &lcdHandle) == FT_OK)	//Examples in FTDI guid use 0. But practice shows 1 is usually the case.
