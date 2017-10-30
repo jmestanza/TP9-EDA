@@ -5,6 +5,7 @@
 #define ENABLE 0x01
 #define RS_IR 0x02
 #define RS_DR 0x00
+#define LCD_CLEAR 0x01
 
 
 class hitachi_lcd : public basic_lcd 

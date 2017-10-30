@@ -1,5 +1,4 @@
 ﻿  main.cpp
-c:\users\joa-m\onedrive\documentos\github\tp9-eda\tp9-lcd\tp9-lcd\main.cpp(17): warning C4101: 'f_stat': variable local sin referencia
   hitachi_lcd.cpp
   basic_lcd.cpp
   Generando código...
