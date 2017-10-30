@@ -1,3 +1,7 @@
 ﻿  main.cpp
+c:\users\joa-m\onedrive\documentos\github\tp9-eda\tp9-lcd\tp9-lcd\main.cpp(19): warning C4101: 'f_stat': variable local sin referencia
+  hitachi_lcd.cpp
+  basic_lcd.cpp
+  Generando código...
   TP9-LCD.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP9-EDA\TP9-LCD\Debug\TP9-LCD.exe
   TP9-LCD.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP9-EDA\TP9-LCD\Debug\TP9-LCD.pdb (Partial PDB)

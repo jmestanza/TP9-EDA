@@ -15,6 +15,7 @@ public:
 	FT_STATUS write_nybble_to_dr(FT_HANDLE h, UCHAR data);
 	FT_STATUS write_byte_to_ir(FT_HANDLE h, UCHAR data);
 	FT_STATUS write_byte_to_dr(FT_HANDLE h, UCHAR data);
+	void clr_display(FT_HANDLE h);
 	void init_4_bit_mode(FT_HANDLE h);
 	~hitachi_lcd();
 };

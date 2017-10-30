@@ -66,6 +66,11 @@ FT_STATUS hitachi_lcd::write_byte_to_dr(FT_HANDLE h, UCHAR data)
 	return ret;
 }
 
+void hitachi_lcd::clr_display(FT_HANDLE h)
+{
+	write_byte_to_dr(h, 0x01);
+}
+
 
 void hitachi_lcd::init_4_bit_mode(FT_HANDLE h)
 {
@@ -75,6 +80,9 @@ void hitachi_lcd::init_4_bit_mode(FT_HANDLE h)
 	Sleep(100);
 	write_nybble_to_ir(h, 0x03);
 	write_nybble_to_ir(h, 0x02);
+
+	clr_display(h);
+	// ACA DEBERIA HABER UN CLEAR DISPLAY;
 }
 
 hitachi_lcd::~hitachi_lcd()
