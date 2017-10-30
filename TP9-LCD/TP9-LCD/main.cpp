@@ -5,12 +5,10 @@
 
 #define FTD2XX_EXPORTS
 #include "ftd2xx.h"
-
 using namespace std;
+
 int main()
 {
-
-	
 	FT_HANDLE lcdHandle;
 	unsigned char info = 0x00;
 	DWORD sizeSent = 0;
@@ -29,21 +27,17 @@ int main()
 			{
 				for(int i = 0x41 ; i < 0x41+15 ; i ++){
 					if (lcd.write_byte_to_ir(lcdHandle,i) == FT_OK) {
-						cout << "se pudo escribir en el LCD!!!" << endl;
+						cout << "LCD written!!!" << endl;
 					}
 					else
 						printf("Error writing to the LCD\n");
 				}
-				
-			}
-			else
-				printf("Couldn't configure LCD\n");
-
+			} 
+			else printf("Couldn't configure LCD\n");
 			FT_Close(lcdHandle);
 		}
 		else
 			printf("Couldn't open USB %d\n", i);
 	}
-
 	return 0;
 }
