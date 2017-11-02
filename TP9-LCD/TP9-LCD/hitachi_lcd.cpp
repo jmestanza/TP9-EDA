@@ -93,18 +93,18 @@ FT_STATUS hitachi_lcd::write_byte_to_dr(FT_HANDLE h, UCHAR data)
 
 void hitachi_lcd::clr_display(FT_HANDLE h)
 {
-	write_byte_to_dr(h, LCD_CLEAR);
+	lcd_stat = write_byte_to_dr(h, LCD_CLEAR);
 }
 
 
 void hitachi_lcd::init_4_bit_mode(FT_HANDLE h)
 {
-	write_nybble_to_ir(h, 0x03);
+	lcd_stat = write_nybble_to_ir(h, 0x03);
 	Sleep(5);
-	write_nybble_to_ir(h, 0x03);
+	lcd_stat = write_nybble_to_ir(h, 0x03);
 	Sleep(0.2);
-	write_nybble_to_ir(h, 0x03);
-	write_nybble_to_ir(h, 0x02);
+	lcd_stat = write_nybble_to_ir(h, 0x03);
+	lcd_stat = write_nybble_to_ir(h, 0x02);
 
 	clr_display(h);
 }
@@ -123,7 +123,37 @@ bool hitachi_lcd::lcdClear()
 
 bool hitachi_lcd::lcdClearToEOL()
 {
-	return false;
+	if (cadd%LCD_LINE == 0)
+	{
+		return false;
+	}
+	else
+	{
+		int aux = 0;
+		if (cadd <= LCD_LINE)
+		{
+			for (aux = 0; aux < (LCD_LINE - cadd); aux++)
+			{
+				lcd_stat = write_byte_to_ir(Handle, EMPTY_CHAR);
+			}
+			for (int i = 0; i < aux; i++)
+			{
+				lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+			}
+		}
+		else
+		{
+			for (aux = 0; aux < ((2*LCD_LINE) - cadd); aux++)
+			{
+				lcd_stat = write_byte_to_ir(Handle, EMPTY_CHAR);
+			}
+			for (int i = 0; i < aux; i++)
+			{
+				lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+			}
+		}
+		return true;
+	}
 }
 
 basic_lcd & hitachi_lcd::operator<<(const unsigned char c)
@@ -133,7 +163,7 @@ basic_lcd & hitachi_lcd::operator<<(const unsigned char c)
 	{
 		for (int i = 0; i < (HITACHI_LINE - LCD_LINE); i++)
 		{
-			write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+			lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 		}
 		if (cadd == (2 * LCD_LINE))
 		{
@@ -162,7 +192,7 @@ basic_lcd & hitachi_lcd::operator<<(const unsigned char * c)
 		{
 			for (int i = 0; i < (HITACHI_LINE - LCD_LINE); i++)
 			{
-				write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+				lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 			}
 			if (cadd == (2 * LCD_LINE))
 			{
@@ -191,7 +221,7 @@ bool hitachi_lcd::lcdMoveCursorUp()
 	{
 		for (int i = 0; i < HITACHI_LINE; i++)
 		{
-			write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+			lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
 		}
 		cadd -= LCD_LINE;
 		return true;
@@ -208,7 +238,7 @@ bool hitachi_lcd::lcdMoveCursorDown()
 	{
 		for (int i = 0; i < HITACHI_LINE; i++)
 		{
-			write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+			lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 		}
 		cadd += LCD_LINE;
 		return true;
@@ -223,7 +253,7 @@ bool hitachi_lcd::lcdMoveCursorRight()
 	}
 	else
 	{
-		write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+		lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 		cadd++;
 		return true;
 	}
@@ -237,10 +267,90 @@ bool hitachi_lcd::lcdMoveCursorLeft()
 	}
 	else
 	{
-		write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+		lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
 		cadd--;
 		return true;
 	}
+}
+
+bool hitachi_lcd::lcdSetCursorPosition(const cursorPosition pos)
+{
+	if ((pos.row < 0) || (pos.row > 1) || (pos.column < 0) || (pos.column > 15))
+	{
+		return false;
+	}
+	else
+	{
+		if (cadd < (LCD_LINE+1))
+		{
+			if (pos.row == 1)
+			{
+				lcdMoveCursorDown();
+				while (cadd != (LCD_LINE + 1))
+				{
+					lcdMoveCursorLeft();
+				}
+				while (cadd != (pos.column + 1 + LCD_LINE))
+				{
+					lcdMoveCursorRight();
+				}
+			}
+			else
+			{
+				while (cadd != 1)
+				{
+					lcdMoveCursorLeft();
+				}
+				while (cadd != (pos.column + 1))
+				{
+					lcdMoveCursorRight();
+				}
+			}
+		}
+		else
+		{
+			if (pos.row == 0)
+			{
+				lcdMoveCursorUp();
+				while (cadd != 1)
+				{
+					lcdMoveCursorLeft();
+				}
+				while (cadd != (pos.column + 1))
+				{
+					lcdMoveCursorRight();
+				}
+			}
+			else
+			{
+				while (cadd != (LCD_LINE + 1))
+				{
+					lcdMoveCursorLeft();
+				}
+				while (cadd != (pos.column + 1 + LCD_LINE))
+				{
+					lcdMoveCursorRight();
+				}
+			}
+		}
+		return true;
+	}
+}
+
+cursorPosition hitachi_lcd::lcdGetCursorPosition()
+{
+	cursorPosition aux;
+	if (cadd > LCD_LINE)
+	{
+		aux.row = 1;
+		aux.column = cadd - LCD_LINE - 1;
+	}
+	else
+	{
+		aux.row = 0;
+		aux.column = cadd - 1;
+	}
+	return aux;
 }
 
 hitachi_lcd::~hitachi_lcd()

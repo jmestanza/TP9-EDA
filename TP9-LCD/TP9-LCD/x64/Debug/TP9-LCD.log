@@ -1,3 +1,7 @@
-﻿  hitachi_lcd.cpp
+﻿  main.cpp
+  hitachi_lcd.cpp
 c:\users\compaq-cq50\source\repos\tp9-eda\tp9-lcd\tp9-lcd\hitachi_lcd.cpp(105): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  basic_lcd.cpp
   TP9-LCD.vcxproj -> C:\Users\Compaq-CQ50\source\repos\TP9-EDA\TP9-LCD\x64\Debug\TP9-LCD.exe

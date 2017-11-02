@@ -22,8 +22,8 @@ public:
 	virtual bool lcdMoveCursorDown() = 0;
 	virtual bool lcdMoveCursorRight() = 0;
 	virtual bool lcdMoveCursorLeft() = 0;
-	//virtual bool lcdSetCursorPosition(const cursorPosition pos) = 0;
-	//virtual cursorPosition lcdGetCursorPosition() = 0;
+	virtual bool lcdSetCursorPosition(const cursorPosition pos) = 0;
+	virtual cursorPosition lcdGetCursorPosition() = 0;
 	//virtual void lcdUpdateCursor() = 0;
 protected:
 	int cadd;

@@ -26,9 +26,8 @@ public:
 	virtual bool lcdMoveCursorDown();
 	virtual bool lcdMoveCursorRight();
 	virtual bool lcdMoveCursorLeft();
-	//virtual bool lcdSetCursorPosition(const cursorPosition pos);
-	//virtual cursorPosition lcdGetCursorPosition();
-	//virtual void lcdUpdateCursor();
+	virtual bool lcdSetCursorPosition(const cursorPosition pos);
+	virtual cursorPosition lcdGetCursorPosition();
 
 	~hitachi_lcd();
 private:
@@ -40,6 +39,7 @@ private:
 	FT_STATUS write_byte_to_dr(FT_HANDLE h, UCHAR data);
 	void clr_display(FT_HANDLE h);
 	void init_4_bit_mode(FT_HANDLE h);
+	//virtual void lcdUpdateCursor();
 	bool error_log;
 };
 

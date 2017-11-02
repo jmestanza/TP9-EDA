@@ -17,6 +17,9 @@ int main()
 	//unsigned char info = 0x00;
 	//DWORD sizeSent = 0;
 	//bool found = false;
+	cursorPosition ex;
+	ex.row = 0;
+	ex.column = 14;
 	hitachi_lcd lcd;
 	
 	if (!lcd.lcdInitOk())
@@ -25,14 +28,13 @@ int main()
 		getchar();
 		lcd << (const unsigned char*)"The quick brown fox";
 		getchar();
-		lcd.lcdMoveCursorRight();
-		getchar();
-		lcd.lcdMoveCursorLeft();
-		getchar();
 		lcd.lcdMoveCursorUp(); 
 		getchar();
-		lcd.lcdMoveCursorDown();
-		
+		lcd.lcdClearToEOL();
+		getchar();
+
+		ex = lcd.lcdGetCursorPosition();
+
 		//lcd.lcdClearToEOL();
 		//char c;
 		//while ((c = getchar()) != 'q') {
