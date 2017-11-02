@@ -368,4 +368,5 @@ cursorPosition hitachi_lcd::lcdGetCursorPosition()
 
 hitachi_lcd::~hitachi_lcd()
 {
+	FT_Close(Handle);
 }

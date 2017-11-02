@@ -13,25 +13,53 @@ using namespace std;
 //unsigned int char2hex(char n);
 int main()
 {
-	//FT_HANDLE lcdHandle;
-	//unsigned char info = 0x00;
-	//DWORD sizeSent = 0;
-	//bool found = false;
 	cursorPosition ex;
-	ex.row = 0;
-	ex.column = 14;
+	ex.row = 1;
+	ex.column = 15;
 	hitachi_lcd lcd;
 	
 	if (!lcd.lcdInitOk())
 	{
-		cout << "LCD INITED OK!" << endl;
-	
+		cout << "--------------------" << endl;
+		cout << "| TP9 - LCD Fase 1 |" << endl;
+		cout << "--------------------" << endl;
+		cout << ">> LCD Hitachi - HD44780 inicializacion OK" << endl;
+		cout << ">> Presione ENTER para mostrar el texto de prueba por default" << endl;
+		getchar();
 		lcd << "The quick brown fox";
+		cout << ">> ENTER para mover el cursor a la linea de arriba" << endl;
+		getchar();
 		lcd.lcdMoveCursorUp();
-
+		cout << ">> ENTER para borrar desde la posicion actual hasta el final de linea" << endl;
+		getchar();
 		lcd.lcdClearToEOL();
-
+		cout << ">> ENTER para mover el cursor un lugar a la derecha" << endl;
+		getchar();
+		lcd.lcdMoveCursorRight();
+		cout << ">> ENTER para mover el cursor a la fila de abajo" << endl;
+		getchar();
+		lcd.lcdMoveCursorDown();
+		cout << ">> ENTER para mover el cursor un lugar a la izquierda" << endl;
+		getchar();
+		lcd.lcdMoveCursorLeft();
+		cout << ">> ENTER para mover el cursor a la fila de arriba" << endl;
+		getchar();
+		lcd.lcdMoveCursorUp();
+		cout << ">> Ingrese un mensaje para mostrar en el LCD y presione ENTER" << endl;
+		cout << ">> ";
+		string aux;
+		cin >> aux;
+		lcd << aux.c_str();
+		cout << ">> Presione ENTER para obtener la posicion actual del cursor" << endl;
+		getchar();
 		ex = lcd.lcdGetCursorPosition();
+		cout << "		ROW: " << ex.row << " COLUMN: " << ex.column << endl;
+		cout << "Presione ENTER para limpiar todo el LCD" << endl;
+		getchar();
+		lcd.lcdClear();
+		cout << ">> Testing succesfull. Presione ENTER para salir.-" << endl;
+		getchar();
+
 	}
 
 	return 0;

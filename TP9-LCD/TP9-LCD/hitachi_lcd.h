@@ -39,7 +39,7 @@ private:
 	FT_STATUS write_byte_to_dr(FT_HANDLE h, UCHAR data);
 	void clr_display(FT_HANDLE h);
 	void init_4_bit_mode(FT_HANDLE h);
-	//virtual void lcdUpdateCursor();
+	virtual void lcdUpdateCursor() {}
 	bool error_log;
 };
 
