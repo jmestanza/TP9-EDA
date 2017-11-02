@@ -1,5 +1,6 @@
 #include "hitachi_lcd.h"
-
+#define HITACHI_LINE 40
+#define LCD_LINE 16
 
 hitachi_lcd::hitachi_lcd()
 {
@@ -36,13 +37,13 @@ FT_STATUS hitachi_lcd::write_nybble_to_ir(FT_HANDLE h, UCHAR data)
 	DWORD bytes_sent;
 	UCHAR temp;
 	temp = (data << 4) & 0xF0;
-	temp = temp | RS_IR & ~ENABLE;
+	temp = (temp | RS_IR) & ~ENABLE;
 	ret = FT_Write(h, &temp, sizeof(temp), &bytes_sent);
 	Sleep(1); // 1ms
 	temp = temp | ENABLE;
 	ret= FT_Write(h, &temp, sizeof(temp), &bytes_sent);
 	Sleep(3); // 3 ms 
-	temp = temp& ~ENABLE;
+	temp = temp& (~ENABLE);
 	FT_Write(h, &temp, sizeof(temp), &bytes_sent);
 	Sleep(1);
 	return ret;
@@ -54,13 +55,13 @@ FT_STATUS hitachi_lcd::write_nybble_to_dr(FT_HANDLE h, UCHAR data)
 	DWORD bytes_sent;
 	UCHAR temp;
 	temp = (data << 4) & 0xF0;
-	temp = temp | RS_DR & ~ENABLE;
+	temp = (temp | RS_DR) & ~ENABLE;
 	ret = FT_Write(h, &temp, sizeof(temp), &bytes_sent);
 	Sleep(1); // 1ms
 	temp = temp | ENABLE;
 	ret = FT_Write(h, &temp, sizeof(temp), &bytes_sent);
 	Sleep(3); // 3 ms 
-	temp = temp& ~ENABLE;
+	temp = temp & (~ENABLE);
 	FT_Write(h, &temp, sizeof(temp), &bytes_sent);
 	Sleep(1);
 	return ret;
@@ -99,9 +100,9 @@ void hitachi_lcd::clr_display(FT_HANDLE h)
 void hitachi_lcd::init_4_bit_mode(FT_HANDLE h)
 {
 	write_nybble_to_ir(h, 0x03);
-	Sleep(4);
+	Sleep(5);
 	write_nybble_to_ir(h, 0x03);
-	Sleep(100);
+	Sleep(1);
 	write_nybble_to_ir(h, 0x03);
 	write_nybble_to_ir(h, 0x02);
 
@@ -120,9 +121,33 @@ bool hitachi_lcd::lcdClear()
 	return true;
 }
 
+bool hitachi_lcd::lcdClearToEOL()
+{
+	
+}
+
 basic_lcd & hitachi_lcd::operator<<(const unsigned char c)
 {
 	this->write_byte_to_ir(Handle, int(c));
+	if (cadd%LCD_LINE == 0)
+	{
+		for (int i = 0; i < (HITACHI_LINE - LCD_LINE); i++)
+		{
+			write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+		}
+		if (cadd == (2 * LCD_LINE))
+		{
+			cadd = 1;
+		}
+		else
+		{
+			cadd++;
+		}
+	}
+	else
+	{
+		cadd++;
+	}
 	return *this;
 }
 
@@ -133,8 +158,89 @@ basic_lcd & hitachi_lcd::operator<<(const unsigned char * c)
 	{
 		this->write_byte_to_ir(Handle, int(c[i]));
 		i++;
+		if (cadd%LCD_LINE == 0)
+		{
+			for (int i = 0; i < (HITACHI_LINE - LCD_LINE); i++)
+			{
+				write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+			}
+			if (cadd == (2 * LCD_LINE))
+			{
+				cadd = 1;
+			}
+			else
+			{
+				cadd++;
+			}
+		}
+		else
+		{
+			cadd++;
+		}
 	}
 	return *this;
+}
+
+bool hitachi_lcd::lcdMoveCursorUp()
+{
+	if (cadd <= LCD_LINE)
+	{
+		return false;
+	}
+	else
+	{
+		for (int i = 0; i < HITACHI_LINE; i++)
+		{
+			write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+		}
+		cadd -= LCD_LINE;
+		return true;
+	}
+}
+
+bool hitachi_lcd::lcdMoveCursorDown()
+{
+	if (cadd >= (LCD_LINE + 1))
+	{
+		return false;
+	}
+	else
+	{
+		for (int i = 0; i < HITACHI_LINE; i++)
+		{
+			write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+		}
+		cadd += LCD_LINE;
+		return true;
+	}
+}
+// write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+bool hitachi_lcd::lcdMoveCursorRight()
+{
+	if (cadd%LCD_LINE == 0)
+	{
+		return false;
+	}
+	else
+	{
+		write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+		cadd++;
+		return true;
+	}
+}
+
+bool hitachi_lcd::lcdMoveCursorLeft()
+{
+	if ((cadd == 1) || (cadd = (LCD_LINE + 1)))
+	{
+		return false;
+	}
+	else
+	{
+		write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+		cadd--;
+		return true;
+	}
 }
 
 hitachi_lcd::~hitachi_lcd()

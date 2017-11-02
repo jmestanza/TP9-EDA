@@ -6,6 +6,9 @@
 #define RS_IR 0x02
 #define RS_DR 0x00
 #define LCD_CLEAR 0x01
+#define LCD_CURSOR_MOVE 0x10
+#define CURSOR_MOVE_L 0x00
+#define CURSOR_MOVE_R 0x04
 #define EMPTY_CHAR 0x20
 
 class hitachi_lcd : public basic_lcd 
@@ -16,16 +19,16 @@ public:
 	virtual bool lcdInitOk();
 	//virtual FT_STATUS lcdGetError();
 	virtual bool lcdClear(); 
-	//virtual bool lcdClearToEOL();
+	virtual bool lcdClearToEOL();
 	virtual basic_lcd& operator<<(const unsigned char c);
 	virtual basic_lcd& operator<<(const unsigned char * c);
-	//virtual bool lcdMoveCursorUp();
-	//virtual bool lcdMoveCursorDown();
-	//virtual bool lcdMoveCursorRight();
-	//virtual bool lcdMoveCursorLeft();
+	virtual bool lcdMoveCursorUp();
+	virtual bool lcdMoveCursorDown();
+	virtual bool lcdMoveCursorRight();
+	virtual bool lcdMoveCursorLeft();
 	//virtual bool lcdSetCursorPosition(const cursorPosition pos);
 	//virtual cursorPosition lcdGetCursorPosition();
-	//virtual	void lcdUpdateCursor();
+	//virtual void lcdUpdateCursor();
 
 	~hitachi_lcd();
 private:

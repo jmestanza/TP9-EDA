@@ -14,15 +14,21 @@ using namespace std;
 int main()
 {
 	//FT_HANDLE lcdHandle;
-	unsigned char info = 0x00;
-	DWORD sizeSent = 0;
-	bool found = false;
+	//unsigned char info = 0x00;
+	//DWORD sizeSent = 0;
+	//bool found = false;
 	hitachi_lcd lcd;
 	
 	if (!lcd.lcdInitOk())
 	{
 		cout << "LCD INITED OK!" << endl;
-		lcd << (const unsigned char *)"Fuerza electrica";
+		lcd << (const unsigned char*)"Hola abcdefghijklmnopqrst";
+		lcd.lcdMoveCursorRight();
+		lcd.lcdMoveCursorLeft();
+		lcd.lcdMoveCursorUp(); 
+		lcd.lcdMoveCursorDown();
+		
+		//lcd.lcdClearToEOL();
 		//char c;
 		//while ((c = getchar()) != 'q') {
 		//	//for (int i = 0x41; i < 0x41 + 15; i++) {

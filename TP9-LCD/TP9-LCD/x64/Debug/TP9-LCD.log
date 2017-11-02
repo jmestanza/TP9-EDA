@@ -1,2 +1,5 @@
 ﻿  main.cpp
+  hitachi_lcd.cpp
+c:\users\compaq-cq50\source\repos\tp9-eda\tp9-lcd\tp9-lcd\hitachi_lcd.cpp(133): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   TP9-LCD.vcxproj -> C:\Users\Compaq-CQ50\source\repos\TP9-EDA\TP9-LCD\x64\Debug\TP9-LCD.exe
