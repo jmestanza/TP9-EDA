@@ -1,7 +1,3 @@
 ﻿  main.cpp
-hitachi_lcd.obj : error LNK2019: unresolved external symbol __imp__FT_Write@16 referenced in function "public: unsigned long __thiscall hitachi_lcd::write_nybble_to_dr(void *,unsigned char)" (?write_nybble_to_dr@hitachi_lcd@@QAEKPAXE@Z)
-main.obj : error LNK2019: unresolved external symbol __imp__FT_Open@8 referenced in function _main
-main.obj : error LNK2019: unresolved external symbol __imp__FT_Close@4 referenced in function _main
-main.obj : error LNK2019: unresolved external symbol __imp__FT_SetBitMode@12 referenced in function _main
-C:\Users\Compaq-CQ50\source\repos\TP9-EDA\Cosas de campus\pruebasConFTDI\pruebasConFTDI\pruebasConFTDI\DriverFTDI\Static\amd64\ftd2xx.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
-C:\Users\Compaq-CQ50\source\repos\TP9-EDA\TP9-LCD\Debug\TP9-LCD.exe : fatal error LNK1120: 4 unresolved externals
+  TP9-LCD.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP9-EDA\TP9-LCD\Debug\TP9-LCD.exe
+  TP9-LCD.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP9-EDA\TP9-LCD\Debug\TP9-LCD.pdb (Partial PDB)

@@ -1,7 +1,11 @@
 ﻿  main.cpp
   hitachi_lcd.cpp
-c:\users\compaq-cq50\source\repos\tp9-eda\tp9-lcd\tp9-lcd\hitachi_lcd.cpp(105): warning C4244: 'argument': conversion from 'double' to 'DWORD', possible loss of data
-  Generating Code...
-  Skipping... (no relevant changes detected)
+c:\users\joa-m\onedrive\documentos\github\tp9-eda\tp9-lcd\tp9-lcd\hitachi_lcd.cpp(105): warning C4244: 'argumento': conversión de 'double' a 'DWORD'; posible pérdida de datos
   basic_lcd.cpp
-  TP9-LCD.vcxproj -> C:\Users\Compaq-CQ50\source\repos\TP9-EDA\TP9-LCD\x64\Debug\TP9-LCD.exe
+  Generando código...
+hitachi_lcd.obj : error LNK2019: símbolo externo __imp_FT_Open sin resolver al que se hace referencia en la función "public: __cdecl hitachi_lcd::hitachi_lcd(void)" (??0hitachi_lcd@@QEAA@XZ)
+hitachi_lcd.obj : error LNK2019: símbolo externo __imp_FT_Close sin resolver al que se hace referencia en la función "public: __cdecl hitachi_lcd::hitachi_lcd(void)" (??0hitachi_lcd@@QEAA@XZ)
+hitachi_lcd.obj : error LNK2019: símbolo externo __imp_FT_Write sin resolver al que se hace referencia en la función "private: unsigned long __cdecl hitachi_lcd::write_nybble_to_dr(void *,unsigned char)" (?write_nybble_to_dr@hitachi_lcd@@AEAAKPEAXE@Z)
+hitachi_lcd.obj : error LNK2019: símbolo externo __imp_FT_SetBitMode sin resolver al que se hace referencia en la función "public: __cdecl hitachi_lcd::hitachi_lcd(void)" (??0hitachi_lcd@@QEAA@XZ)
+C:\Users\joa-m\OneDrive\Documentos\GitHub\TP9-EDA\TP9-LCD\TP9-LCD\DriverFTDI\i386\ftd2xx.lib : warning LNK4272: el tipo de máquina de biblioteca 'x86' está en conflicto con el tipo de máquina de destino 'x64'
+C:\Users\joa-m\OneDrive\Documentos\GitHub\TP9-EDA\TP9-LCD\x64\Debug\TP9-LCD.exe : fatal error LNK1120: 4 externos sin resolver

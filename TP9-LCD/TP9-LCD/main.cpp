@@ -25,34 +25,13 @@ int main()
 	if (!lcd.lcdInitOk())
 	{
 		cout << "LCD INITED OK!" << endl;
-		getchar();
-		lcd << (const unsigned char*)"The quick brown fox";
-		getchar();
-		lcd.lcdMoveCursorUp(); 
-		getchar();
+	
+		lcd << "The quick brown fox";
+		lcd.lcdMoveCursorUp();
+
 		lcd.lcdClearToEOL();
-		getchar();
 
 		ex = lcd.lcdGetCursorPosition();
-
-		//lcd.lcdClearToEOL();
-		//char c;
-		//while ((c = getchar()) != 'q') {
-		//	//for (int i = 0x41; i < 0x41 + 15; i++) {
-		//	if (c != '\n') {
-
-		//		int aux = int(c);
-		//		if (lcd.write_byte_to_ir(lcdHandle, aux) == FT_OK) {
-		//			cout << "LCD written!!!" << endl;
-		//		}
-		//		else {
-		//			printf("Error writing to the LCD\n");
-		//		}
-		//	}
-
-		//		}
-
-		//}
 	}
 
 	return 0;

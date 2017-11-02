@@ -3,8 +3,8 @@
 #include "windows.h"
 #include "ftd2xx.h"
 #define ENABLE 0x01
-#define RS_IR 0x02
-#define RS_DR 0x00
+#define RS_IR 0x00
+#define RS_DR 0x02
 #define LCD_CLEAR 0x01
 #define LCD_CURSOR_MOVE 0x10
 #define CURSOR_MOVE_L 0x00
@@ -21,7 +21,7 @@ public:
 	virtual bool lcdClear(); 
 	virtual bool lcdClearToEOL();
 	virtual basic_lcd& operator<<(const unsigned char c);
-	virtual basic_lcd& operator<<(const unsigned char * c);
+	virtual basic_lcd& operator<<(const char * c);
 	virtual bool lcdMoveCursorUp();
 	virtual bool lcdMoveCursorDown();
 	virtual bool lcdMoveCursorRight();

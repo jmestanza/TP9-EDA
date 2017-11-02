@@ -1,34 +1,45 @@
 #include "hitachi_lcd.h"
+#include <chrono>
 #define HITACHI_LINE 40
 #define LCD_LINE 16
+
+#define LCD_DESCRIPTION "EDA LCD 1 B"
+#define CONNECTING_TIME 5 //in seconds
 
 hitachi_lcd::hitachi_lcd()
 {
 	bool found = false;
+	lcd_stat = !FT_OK;
 	cadd = 1;
 	error_log = true; // No usable LCD at start
-	for (int i = 1; (i < 10) && !found; i++)
+	std::chrono::seconds MaxTime(CONNECTING_TIME);/*The display has a settling time after the physical connection so the attempt to connect
+												  will be done for a few seconds*/
+
+	std::chrono::time_point<std::chrono::system_clock> start = std::chrono::system_clock::now();
+	std::chrono::time_point<std::chrono::system_clock> current = start;
+
+	while (lcd_stat != FT_OK && ((current - start) < MaxTime))//loop till succesful connection o max connecting time is exceeded
 	{
-		lcd_stat = FT_Open(i, &Handle);
+		lcd_stat = FT_OpenEx((void *)LCD_DESCRIPTION, FT_OPEN_BY_DESCRIPTION, &Handle);
+
 		if (lcd_stat == FT_OK)
-			found = true;
+		{
+			UCHAR Mask = 0xFF;	//Selects all FTDI pins.
+			UCHAR Mode = 1; 	// Set asynchronous bit-bang mode
+			if (FT_SetBitMode(Handle, Mask, Mode) == FT_OK)	// Sets LCD as asynch bit mode. Otherwise it doesn't work.
+			{
+				error_log = false;
+				init_4_bit_mode(Handle);
+				lcdClear();
+			}
+			else
+				printf("Couldn't configure LCD\n");
+		}
+		current = std::chrono::system_clock::now();
 	}
 
-	if (found) 
-	{
-		init_4_bit_mode(Handle);
-		UCHAR Mask = 0xFF;	//Selects all FTDI pins.
-		UCHAR Mode = 1; 	// Set asynchronous bit-bang mode
-		lcd_stat = FT_SetBitMode(Handle, Mask, Mode);
-		if (lcd_stat == FT_OK)
-		{
-			error_log = false; // LCD init succesfull
-		}
-		else
-		{
-			FT_Close(Handle);
-		}
-	}
+	if (lcd_stat != FT_OK)
+		printf("Couldn't open LCD\n");
 }
 
 FT_STATUS hitachi_lcd::write_nybble_to_ir(FT_HANDLE h, UCHAR data)
@@ -93,20 +104,22 @@ FT_STATUS hitachi_lcd::write_byte_to_dr(FT_HANDLE h, UCHAR data)
 
 void hitachi_lcd::clr_display(FT_HANDLE h)
 {
-	lcd_stat = write_byte_to_dr(h, LCD_CLEAR);
+	lcd_stat = write_byte_to_ir(h, LCD_CLEAR);
 }
 
 
 void hitachi_lcd::init_4_bit_mode(FT_HANDLE h)
 {
-	lcd_stat = write_nybble_to_ir(h, 0x03);
-	Sleep(5);
-	lcd_stat = write_nybble_to_ir(h, 0x03);
-	Sleep(0.2);
-	lcd_stat = write_nybble_to_ir(h, 0x03);
 	lcd_stat = write_nybble_to_ir(h, 0x02);
 
-	clr_display(h);
+	lcd_stat = write_nybble_to_ir(h, 0x02);
+	lcd_stat = write_nybble_to_ir(h, 0x08);
+
+	lcd_stat = write_nybble_to_ir(h, 0x00);
+	lcd_stat = write_nybble_to_ir(h, 0x0E);
+
+	lcd_stat = write_nybble_to_ir(h, 0x00);
+	lcd_stat = write_nybble_to_ir(h, 0x06);
 }
 
 bool hitachi_lcd::lcdInitOk()
@@ -134,22 +147,22 @@ bool hitachi_lcd::lcdClearToEOL()
 		{
 			for (aux = 0; aux < (LCD_LINE - cadd); aux++)
 			{
-				lcd_stat = write_byte_to_ir(Handle, EMPTY_CHAR);
+				lcd_stat = write_byte_to_dr(Handle, EMPTY_CHAR);
 			}
 			for (int i = 0; i < aux; i++)
 			{
-				lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+				lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
 			}
 		}
 		else
 		{
 			for (aux = 0; aux < ((2*LCD_LINE) - cadd); aux++)
 			{
-				lcd_stat = write_byte_to_ir(Handle, EMPTY_CHAR);
+				lcd_stat = write_byte_to_dr(Handle, EMPTY_CHAR);
 			}
 			for (int i = 0; i < aux; i++)
 			{
-				lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+				lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
 			}
 		}
 		return true;
@@ -158,12 +171,12 @@ bool hitachi_lcd::lcdClearToEOL()
 
 basic_lcd & hitachi_lcd::operator<<(const unsigned char c)
 {
-	this->write_byte_to_ir(Handle, int(c));
+	this->write_byte_to_dr(Handle, int(c));
 	if (cadd%LCD_LINE == 0)
 	{
 		for (int i = 0; i < (HITACHI_LINE - LCD_LINE); i++)
 		{
-			lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+			lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 		}
 		if (cadd == (2 * LCD_LINE))
 		{
@@ -181,18 +194,18 @@ basic_lcd & hitachi_lcd::operator<<(const unsigned char c)
 	return *this;
 }
 
-basic_lcd & hitachi_lcd::operator<<(const unsigned char * c)
+basic_lcd & hitachi_lcd::operator<<(const char * c)
 {
 	unsigned int i = 0;
 	while (c[i] != NULL)
 	{
-		this->write_byte_to_ir(Handle, int(c[i]));
+		this->write_byte_to_dr(Handle, int(c[i]));
 		i++;
 		if (cadd%LCD_LINE == 0)
 		{
 			for (int i = 0; i < (HITACHI_LINE - LCD_LINE); i++)
 			{
-				lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+				lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 			}
 			if (cadd == (2 * LCD_LINE))
 			{
@@ -221,7 +234,7 @@ bool hitachi_lcd::lcdMoveCursorUp()
 	{
 		for (int i = 0; i < HITACHI_LINE; i++)
 		{
-			lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+			lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
 		}
 		cadd -= LCD_LINE;
 		return true;
@@ -238,7 +251,7 @@ bool hitachi_lcd::lcdMoveCursorDown()
 	{
 		for (int i = 0; i < HITACHI_LINE; i++)
 		{
-			lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+			lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 		}
 		cadd += LCD_LINE;
 		return true;
@@ -253,7 +266,7 @@ bool hitachi_lcd::lcdMoveCursorRight()
 	}
 	else
 	{
-		lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+		lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
 		cadd++;
 		return true;
 	}
@@ -267,7 +280,7 @@ bool hitachi_lcd::lcdMoveCursorLeft()
 	}
 	else
 	{
-		lcd_stat = write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
+		lcd_stat = write_byte_to_ir(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_L));
 		cadd--;
 		return true;
 	}
