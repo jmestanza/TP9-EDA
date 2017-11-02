@@ -5,6 +5,7 @@
 hitachi_lcd::hitachi_lcd()
 {
 	bool found = false;
+	cadd = 1;
 	error_log = true; // No usable LCD at start
 	for (int i = 1; (i < 10) && !found; i++)
 	{
@@ -22,7 +23,6 @@ hitachi_lcd::hitachi_lcd()
 		if (lcd_stat == FT_OK)
 		{
 			error_log = false; // LCD init succesfull
-			cadd = 1;
 		}
 		else
 		{
@@ -102,7 +102,7 @@ void hitachi_lcd::init_4_bit_mode(FT_HANDLE h)
 	write_nybble_to_ir(h, 0x03);
 	Sleep(5);
 	write_nybble_to_ir(h, 0x03);
-	Sleep(1);
+	Sleep(0.2);
 	write_nybble_to_ir(h, 0x03);
 	write_nybble_to_ir(h, 0x02);
 
@@ -123,7 +123,7 @@ bool hitachi_lcd::lcdClear()
 
 bool hitachi_lcd::lcdClearToEOL()
 {
-	
+	return false;
 }
 
 basic_lcd & hitachi_lcd::operator<<(const unsigned char c)
@@ -214,7 +214,7 @@ bool hitachi_lcd::lcdMoveCursorDown()
 		return true;
 	}
 }
-// write_byte_to_dr(Handle, (LCD_CURSOR_MOVE | CURSOR_MOVE_R));
+
 bool hitachi_lcd::lcdMoveCursorRight()
 {
 	if (cadd%LCD_LINE == 0)
@@ -231,7 +231,7 @@ bool hitachi_lcd::lcdMoveCursorRight()
 
 bool hitachi_lcd::lcdMoveCursorLeft()
 {
-	if ((cadd == 1) || (cadd = (LCD_LINE + 1)))
+	if ((cadd == 1) || (cadd == (LCD_LINE + 1)))
 	{
 		return false;
 	}

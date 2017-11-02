@@ -22,10 +22,15 @@ int main()
 	if (!lcd.lcdInitOk())
 	{
 		cout << "LCD INITED OK!" << endl;
-		lcd << (const unsigned char*)"Hola abcdefghijklmnopqrst";
+		getchar();
+		lcd << (const unsigned char*)"The quick brown fox";
+		getchar();
 		lcd.lcdMoveCursorRight();
+		getchar();
 		lcd.lcdMoveCursorLeft();
+		getchar();
 		lcd.lcdMoveCursorUp(); 
+		getchar();
 		lcd.lcdMoveCursorDown();
 		
 		//lcd.lcdClearToEOL();
