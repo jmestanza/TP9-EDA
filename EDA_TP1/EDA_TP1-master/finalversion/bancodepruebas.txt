@@ -1,0 +1,20 @@
+Banco de pruebas:
+ACLARACIÓN:
+Como se añadió la posibilidad de tener opciones válidas
+para este tp se utilizaron font y size como opciones validas
+y en las opciones si value era un string de solo numeros se tomo un minimo y maximo  min: 0 max : 600
+Tambien se tomo en cuenta que si value era un string de combinacion de numeros y letras el unico los values permitidos serian de nuevo font y size 
+Dejamos como parametros validos las palabras: hello,bye
+
+
+Errores:
+-size  (error de forma 1, falta value)
+-   (error de forma 2, no tiene un comando de opción asociado, ni value tampoco)
+
+
+-asd 600 (error ya que no es ni opcion válida, ni value válido)
+-asd fgh (error ya que asd y fgh no son ni opciones, ni value validos)
+
+
+asd  (error de parametro no válido) 
+

@@ -1,0 +1,19 @@
+Banco de pruebas:
+Errores:
+-f  (error de forma 1)
+-   (error de forma 2)
+
+-size 123 (error si size no es una opción válida)
+-size asd (error de argumento si asd no es valido para el comando size)
+
+
+size  (error de parametro no válido si size no esta en la lista de parametro válidos) 
+
+
+Deben funcionar:
+--a 5
+
+-f asd
+
+-f 123 asd asd -h asd
+
