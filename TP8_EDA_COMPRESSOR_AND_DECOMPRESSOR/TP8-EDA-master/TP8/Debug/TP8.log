@@ -1,0 +1,7 @@
+﻿  utils.cpp
+c:\users\joa-m\source\repos\tp8\tp8\utils.cpp(4): warning C4018: '<': no coinciden signed/unsigned
+  filesys_utils.cpp
+  lodepng.cpp
+  main.cpp
+  Generando código...
+LINK : fatal error LNK1104: no se puede abrir el archivo 'libboost_filesystem-vc141-mt-gd-1_65_1.lib'

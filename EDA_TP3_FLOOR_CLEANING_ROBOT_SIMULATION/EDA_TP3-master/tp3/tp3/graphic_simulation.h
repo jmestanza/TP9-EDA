@@ -1,0 +1,77 @@
+#ifndef GRAPHIC_SIMULATION_H
+#define GRAPHIC_SIMULATION_H
+
+#include "allegro5/allegro.h"
+#include "allegro5/allegro_image.h"
+#include "utils.h"
+
+/*** bitmaps_t ***/
+struct bitmaps_t {
+	ALLEGRO_BITMAP *clean_tile;
+	ALLEGRO_BITMAP *dirty_tile;
+	ALLEGRO_BITMAP *robot;
+	ALLEGRO_BITMAP *arrow;
+};
+bitmaps_t* bitmaps_init();
+void bitmaps_destroy(bitmaps_t *);
+
+/*** bitmaps_t **/
+
+/*** dimensions_data ***/
+struct sim_data { // all data of simulation that needs to be accessed from robots
+
+	pos_t <uint32_t> *screen_size;
+	pos_t <uint32_t> *sim_size;  // total simulation size
+	double tile_size;
+	bool *tiles; // tile status
+	uint32_t period , current_it;
+	bitmaps_t *bitmaps;
+
+};
+/*** dimensions_data ***/
+
+/*** simluation_robot_t ***/
+struct sim_robot_t {
+	pos_t<double> start_position;
+	pos_t<double>  target_position;
+	pos_t<double> current_position;
+
+	sim_data *data; // simulation side size (the width and height of simulation are equal)
+	
+
+};
+
+sim_robot_t * sim_robot_init(double speed,sim_data *data);
+void sim_robot_draw(sim_robot_t*);
+void sim_robot_update(sim_robot_t*);
+void sim_robot_set_target_position(sim_robot_t *,pos_t<double> target);
+
+void sim_robot_destroy(sim_robot_t *);
+
+/*** simluation_robot_t ***/
+
+/*** graphic_simulation_t ***/
+struct graphic_simluation_t {
+	sim_robot_t **robots;
+	uint32_t cnt_robots;
+
+	sim_data data; // simulation data
+
+	bool need_next_position; // flag to indicate when every robot is already in its real position
+};
+
+
+graphic_simluation_t *sim_create(pos_t<uint32_t> *screen_size,pos_t<uint32_t> *sim_size, uint32_t period, uint32_t cnt_robots, pos_t<double> *initial_pos) ;
+void sim_draw(graphic_simluation_t * sim);
+void sim_update_robot_pos(graphic_simluation_t * sim, pos_t<double> *positions);
+void sim_update_tiles(graphic_simluation_t *sim, bool *tiles);
+bool sim_tile_status(graphic_simluation_t *sim, uint32_t i, uint32_t j);
+void sim_update_screen_size(graphic_simluation_t *sim, uint32_t screen_width, uint32_t screen_height);
+bool sim_advance_animation(graphic_simluation_t *sim);
+
+void sim_destroy(graphic_simluation_t *);
+
+/*** graphic_simulation_t ***/
+
+
+#endif

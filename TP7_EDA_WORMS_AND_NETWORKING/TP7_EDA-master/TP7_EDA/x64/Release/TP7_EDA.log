@@ -1,0 +1,18 @@
+﻿  stdafx.cpp
+  Cevent.cpp
+  controller.cpp
+  event_generator.cpp
+  fsm.cpp
+  generic_event.cpp
+  generic_state.cpp
+  network.cpp
+network.cpp(102): warning C4101: 'ex': variable local sin referencia
+  Output.cpp
+  main.cpp
+  worm.cpp
+  Generando código
+c:\users\joa-m\onedrive\documentos\github\tp7_eda\tp7_eda\fsm.cpp(21): warning C4715: 'key_convert': no todas las rutas de acceso de control devuelven un valor
+  All 1176 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Generación de código finalizada
+  TP7_EDA.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP7_EDA\x64\Release\TP7_EDA.exe
+  TP7_EDA.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP7_EDA\x64\Release\TP7_EDA.pdb (Full PDB)

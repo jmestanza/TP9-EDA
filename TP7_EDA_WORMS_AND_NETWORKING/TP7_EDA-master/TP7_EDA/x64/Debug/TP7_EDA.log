@@ -1,0 +1,16 @@
+﻿  stdafx.cpp
+  worm.cpp
+  main.cpp
+  Output.cpp
+  network.cpp
+c:\users\joa-m\onedrive\documentos\github\tp7_eda\tp7_eda\network.cpp(102): warning C4101: 'ex': variable local sin referencia
+  generic_state.cpp
+  generic_event.cpp
+  fsm.cpp
+  event_generator.cpp
+  controller.cpp
+  Cevent.cpp
+  Generando código...
+c:\users\joa-m\onedrive\documentos\github\tp7_eda\tp7_eda\fsm.cpp(21): warning C4715: 'key_convert': no todas las rutas de acceso de control devuelven un valor
+  TP7_EDA.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP7_EDA\x64\Debug\TP7_EDA.exe
+  TP7_EDA.vcxproj -> C:\Users\joa-m\OneDrive\Documentos\GitHub\TP7_EDA\x64\Debug\TP7_EDA.pdb (Partial PDB)

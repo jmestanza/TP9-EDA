@@ -1,0 +1,85 @@
+﻿  main.cpp
+c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(413): error C2259: 'generic_event': cannot instantiate abstract class
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(413): note: due to following members:
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(413): note: 'eventType generic_event::getEventValue(void)': is abstract
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\generic_event.h(16): note: see declaration of 'generic_event::getEventValue'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(413): note: 'void generic_event::show(void)': is abstract
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\generic_event.h(17): note: see declaration of 'generic_event::show'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(647): note: see reference to class template instantiation 'std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer>' being compiled
+          with
+          [
+              _Ty=generic_event,
+              _Alloc=std::allocator<generic_event>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(645): note: while compiling class template member function 'void std::_List_alloc<std::_List_base_types<_Ty,_Alloc>>::_Freeheadnode(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *)'
+          with
+          [
+              _Ty=generic_event,
+              _Alloc=std::allocator<generic_event>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(562): note: see reference to function template instantiation 'void std::_List_alloc<std::_List_base_types<_Ty,_Alloc>>::_Freeheadnode(std::_List_node<_Ty,std::_Default_allocator_traits<_Alloc>::void_pointer> *)' being compiled
+          with
+          [
+              _Ty=generic_event,
+              _Alloc=std::allocator<generic_event>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(733): note: see reference to class template instantiation 'std::_List_alloc<std::_List_base_types<_Ty,_Alloc>>' being compiled
+          with
+          [
+              _Ty=generic_event,
+              _Alloc=std::allocator<generic_event>
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\list(785): note: see reference to class template instantiation 'std::_List_buy<_Ty,_Alloc>' being compiled
+          with
+          [
+              _Ty=generic_event,
+              _Alloc=std::allocator<generic_event>
+          ]
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.h(29): note: see reference to class template instantiation 'std::list<generic_event,std::allocator<_Ty>>' being compiled
+          with
+          [
+              _Ty=generic_event
+          ]
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(54): note: see reference to class template instantiation 'boost::arg<9>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(53): note: see reference to class template instantiation 'boost::arg<8>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(52): note: see reference to class template instantiation 'boost::arg<7>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(51): note: see reference to class template instantiation 'boost::arg<6>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(50): note: see reference to class template instantiation 'boost::arg<5>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(49): note: see reference to class template instantiation 'boost::arg<4>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(48): note: see reference to class template instantiation 'boost::arg<3>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(47): note: see reference to class template instantiation 'boost::arg<2>' being compiled
+  c:\users\compaq-cq50\source\repos\tp7_eda\packages\boost.1.65.1.0\lib\native\include\boost\bind\placeholders.hpp(46): note: see reference to class template instantiation 'boost::arg<1>' being compiled
+  event_generator.cpp
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(12): error C3867: 'Cevent::getType': non-standard syntax; use '&' to create a pointer to member
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(12): error C2678: binary '!=': no operator found which takes a left-hand operand of type 'overloaded-function' (or there is no acceptable conversion)
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\shared\guiddef.h(197): note: could be 'bool operator !=(const GUID &,const GUID &)'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\system_error(394): note: or       'bool std::operator !=(const std::error_condition &,const std::error_condition &) noexcept'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\system_error(389): note: or       'bool std::operator !=(const std::error_condition &,const std::error_code &) noexcept'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\system_error(384): note: or       'bool std::operator !=(const std::error_code &,const std::error_condition &) noexcept'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\system_error(379): note: or       'bool std::operator !=(const std::error_code &,const std::error_code &) noexcept'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\exception(357): note: or       'bool std::operator !=(const std::exception_ptr &,std::nullptr_t) throw()'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\exception(352): note: or       'bool std::operator !=(std::nullptr_t,const std::exception_ptr &) throw()'
+  c:\program files (x86)\microsoft visual studio\2017\enterprise\vc\tools\msvc\14.11.25503\include\exception(347): note: or       'bool std::operator !=(const std::exception_ptr &,const std::exception_ptr &) throw()'
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(12): note: while trying to match the argument list '(overloaded-function, EVENTOS)'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(14): error C3867: 'Cevent::getType': non-standard syntax; use '&' to create a pointer to member
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(36): error C2360: initialization of 'ev_mp' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(33): note: see declaration of 'ev_mp'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(40): error C2360: initialization of 'ev_mr' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(37): note: see declaration of 'ev_mr'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(40): error C2360: initialization of 'ev_mp' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(33): note: see declaration of 'ev_mp'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(44): error C2360: initialization of 'ev_jp' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(41): note: see declaration of 'ev_jp'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(44): error C2360: initialization of 'ev_mr' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(37): note: see declaration of 'ev_mr'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(44): error C2360: initialization of 'ev_mp' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(33): note: see declaration of 'ev_mp'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(48): error C2360: initialization of 'ev_jr' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(45): note: see declaration of 'ev_jr'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(48): error C2360: initialization of 'ev_jp' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(41): note: see declaration of 'ev_jp'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(48): error C2360: initialization of 'ev_mr' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(37): note: see declaration of 'ev_mr'
+c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(48): error C2360: initialization of 'ev_mp' is skipped by 'case' label
+  c:\users\compaq-cq50\source\repos\tp7_eda\tp7_eda\event_generator.cpp(33): note: see declaration of 'ev_mp'
+  Generating Code...

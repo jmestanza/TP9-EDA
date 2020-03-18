@@ -1,0 +1,9 @@
+﻿  graphic_simluation.cpp
+f:\eda_tp3\tp3\tp3\graphic_simluation.cpp(227): warning C4018: '<': signed/unsigned mismatch
+f:\eda_tp3\tp3\tp3\graphic_simluation.cpp(228): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  main.cpp
+  Generating Code...
+  tp3.vcxproj -> F:\EDA_TP3\tp3\Debug\tp3.exe
+  tp3.vcxproj -> F:\EDA_TP3\tp3\Debug\tp3.pdb (Partial PDB)

@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (Compresor.vcxproj, TP8.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  mosaico.cpp
+  imgs_catalog.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  main.cpp
+  ev_handler.cpp
+  TP8.vcxproj -> C:\Users\Compaq-CQ50\source\repos\TP8-EDA\x64\Debug\Compressor.exe
